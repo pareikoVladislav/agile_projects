@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.projects.serializers.project_serializers import ProjectShortInfoSerializer
 from apps.projects.models import ProjectFile
 from apps.projects.utils.upload_file_helper import (
     validate_file_extension,
@@ -13,7 +14,8 @@ class AllProjectFileSerializer(serializers.ModelSerializer):
 
     project = serializers.SlugRelatedField(
         read_only=True,
-        slug_field="name"
+        slug_field="name",
+        many=True
     )
 
     class Meta:
@@ -60,3 +62,12 @@ class CreateProjectFileSerializer(serializers.ModelSerializer):
         project_file = ProjectFile.objects.create(**validated_data)
         project_file.project.add(project)
         return project_file
+
+
+class ProjectFileDetailSerializer(serializers.ModelSerializer):
+
+    project = ProjectShortInfoSerializer()
+
+    class Meta:
+        models = ProjectFile
+        fields = ("id", "file_name", 'created_at' "project")

@@ -1,13 +1,19 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, get_object_or_404
+from rest_framework.generics import (
+    ListCreateAPIView,
+    get_object_or_404,
+    RetrieveDestroyAPIView
+)
 
 from apps.projects.models import Project, ProjectFile
 from apps.projects.serializers.project_file_serializers import (
     CreateProjectFileSerializer,
-    AllProjectFileSerializer
+    AllProjectFileSerializer,
+    ProjectFileDetailSerializer
 )
+from apps.projects.utils.upload_file_helper import delete_file
 
 
 class ProjectFileListGenericView(ListCreateAPIView):
@@ -58,3 +64,43 @@ class ProjectFileListGenericView(ListCreateAPIView):
             data=serializer.data,
             status=status.HTTP_201_CREATED
         )
+
+
+class ProjectFileDetailGenericView(RetrieveDestroyAPIView):
+
+    serializer_class = ProjectFileDetailSerializer
+
+    def get_object(self):
+        return get_object_or_404(ProjectFile, pk=self.kwargs["file_id"])
+
+
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        file = self.get_object()
+        serializer = self.serializer_class(file)
+
+        return Response(
+            data=serializer.data,
+            status=status.HTTP_200_OK
+        )
+
+    def delete(self, request: Request, *args, **kwargs) -> Response:
+        file = self.get_object()
+
+        try:
+            delete_file(file.file_path)
+            file.delete()
+            return Response(
+                data={
+                    'message': 'File was successfully deleted.'
+                },
+                status=status.HTTP_200_OK
+            )
+        except FileNotFoundError as err:
+
+            return Response(
+                data={
+                    "message": str(err)
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
