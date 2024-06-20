@@ -12,7 +12,7 @@ from apps.projects.utils.upload_file_helper import (
 
 class AllProjectFileSerializer(serializers.ModelSerializer):
 
-    project = serializers.SlugRelatedField(
+    projects = serializers.SlugRelatedField(
         read_only=True,
         slug_field="name",
         many=True
@@ -23,7 +23,7 @@ class AllProjectFileSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "file_name",
-            "project"
+            "projects"
         ]
 
 
