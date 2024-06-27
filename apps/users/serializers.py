@@ -8,7 +8,6 @@ from apps.users.models import User
 
 
 class UserListSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = [
@@ -20,8 +19,22 @@ class UserListSerializer(serializers.ModelSerializer):
             "last_login"
         ]
 
-class RegisterUserSerializer(serializers.ModelSerializer):
 
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'position',
+            'project'
+        ]
+
+
+class RegisterUserSerializer(serializers.ModelSerializer):
     re_password = serializers.CharField(max_length=128, write_only=True)
 
     class Meta:

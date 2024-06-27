@@ -1,0 +1,26 @@
+Feature: Получение информации о юзере
+   As a user
+   I want to be able to retrieve information about a specific user
+   So that I can view its details
+
+   Scenario: Успешное получение информации о юзере по ID
+     Given существует юзер с ID "1"
+     When я отправляю GET-запрос на "/users/1/"
+     Then я получаю ответ со статусом "200 OK"
+     And ответ содержит следующие данные о задаче:
+       | поле       | значение                        |
+       | username   | "solodkov_test_user_retrieve_1" |
+       | first_name | "Retrieve"                      |
+       | last_name  | "Checking"                      |
+       | email      | "retrieve.checking@ich.de"      |
+       | phone      | "+4912309609483"                |
+       | position   | Ceo                              |
+       | project    | SAPHYR INC                      |
+
+
+
+    Scenario: Получение информации о юзере с несуществующим ID
+      Given не существует юзера с ID "999"
+      When я отправляю GET-запрос на "/users/999/"
+      Then я получаю ответ со статусом "404 Not Found"
+      And ответ содержит сообщение "No User matches the given query."
