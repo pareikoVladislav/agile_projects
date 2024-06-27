@@ -1,0 +1,129 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$ucxV2FPJGBep64PnEuhf3K$s0mal+co3WXaCB9QtmoLDSsL7kYt6PKJTVZD2Y806LU=",
+        "is_superuser": true,
+        "username": "vPareiko",
+        "first_name": "root",
+        "last_name": "admin",
+        "email": "root.admin@gmail.com",
+        "phone": null,
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-06-24T17:14:49.911Z",
+        "last_login": null,
+        "updated_at": "2024-06-24T17:14:49.911Z",
+        "deleted_at": null,
+        "deleted": false,
+        "project": null,
+        "position": "PROJECT_OWNER",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "projects.project",
+    "pk": 1,
+    "fields": {
+        "name": "TIGER INC",
+        "description": "Some Description about the company just for teses № 1",
+        "created_at": "2024-06-26T21:03:21Z",
+        "files": []
+    }
+},
+{
+    "model": "projects.project",
+    "pk": 2,
+    "fields": {
+        "name": "SAPHYR INC",
+        "description": "Some Description about the company just for teses № 2",
+        "created_at": "2005-09-02T21:03:22Z",
+        "files": []
+    }
+},
+{
+    "model": "projects.project",
+    "pk": 3,
+    "fields": {
+        "name": "NASDAQ INC",
+        "description": "Some Description about the company just for teses № 3",
+        "created_at": "2010-08-25T11:14:34Z",
+        "files": []
+    }
+},
+{
+    "model": "projects.project",
+    "pk": 4,
+    "fields": {
+        "name": "SystemLabs INC",
+        "description": "Some Description about the company just for teses № 4",
+        "created_at": "1998-11-30T18:30:50Z",
+        "files": []
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+        "name": "Update log-in endpoint",
+        "description": "Some Description about the task just for tests № 1",
+        "status": "NEW",
+        "priority": 3,
+        "project": 1,
+        "created_at": "2024-06-26T21:06:59Z",
+        "updated_at": "2024-06-26T21:08:02Z",
+        "deleted_at": null,
+        "deadline": "2024-06-28T21:07:34Z",
+        "assignee": [
+            "root.admin@gmail.com"
+        ],
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+        "name": "Create new UI",
+        "description": "Some Description about the task just for tests № 2",
+        "status": "IN_PROGRESS",
+        "priority": 3,
+        "project": 1,
+        "created_at": "2024-06-18T21:07:01Z",
+        "updated_at": "2024-06-26T21:07:26Z",
+        "deleted_at": null,
+        "deadline": "2024-06-29T21:07:39Z",
+        "assignee": [
+            "root.admin@gmail.com"
+        ],
+        "tags": [
+            3
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+        "name": "Update server backups",
+        "description": "Some Description about the task just for tests № 3",
+        "status": "PENDING",
+        "priority": 4,
+        "project": 1,
+        "created_at": "2024-06-23T11:07:08Z",
+        "updated_at": "2024-06-26T21:08:03Z",
+        "deleted_at": null,
+        "deadline": "2024-06-29T11:07:43Z",
+        "assignee": [
+            "root.admin@gmail.com"
+        ],
+        "tags": [
+            8
+        ]
+    }
+}
+]

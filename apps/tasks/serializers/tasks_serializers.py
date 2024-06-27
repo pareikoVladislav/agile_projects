@@ -45,7 +45,7 @@ class CreateUpdateTaskSerializer(serializers.ModelSerializer):
     def validate_priority(self, value):
         if value not in [item[0] for item in Priorities.choices()]:
             raise serializers.ValidationError(
-                "The priority of the task couldn't be one of the available options"
+                {"priority": "The priority of the task couldn't be one of the available options"}
             )
         return value
 

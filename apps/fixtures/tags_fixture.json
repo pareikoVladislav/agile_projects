@@ -1,0 +1,58 @@
+[
+{
+    "model": "tasks.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Backend"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 2,
+    "fields": {
+        "name": "Frontend"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 3,
+    "fields": {
+        "name": "Design"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Testing"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Data Science"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 6,
+    "fields": {
+        "name": "Data Analytics"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 7,
+    "fields": {
+        "name": "Machine Learning"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 8,
+    "fields": {
+        "name": "DevOPS"
+    }
+}
+]

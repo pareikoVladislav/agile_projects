@@ -2,12 +2,12 @@ from enum import Enum
 
 
 class Statuses(Enum):
-    NEW = "New"
-    IN_PROGRESS = "In progress"
-    PENDING = "Pending"
-    BLOCKED = "Blocked"
-    TESTING = "Testing"
-    CLOSED = "Closed"
+    NEW = "NEW"
+    IN_PROGRESS = "IN_PROGRESS"
+    PENDING = "PENDING"
+    BLOCKED = "BLOCKED"
+    TESTING = "TESTING"
+    CLOSED = "CLOSED"
 
     @classmethod
     def choices(cls):

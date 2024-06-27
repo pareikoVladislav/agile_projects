@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('apps.router'))
+    path('api/v1/', include('apps.router')),
+    path('', lambda req: HttpResponse('Welcome to my site!'))  # 127.0.0.1:8000/
 ]
