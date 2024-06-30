@@ -5,6 +5,7 @@ from apps.tasks.models import Task, Tag
 from apps.projects.models import Project
 from apps.tasks.choices.priorities import Priorities
 from apps.projects.serializers.project_serializers import ProjectShortInfoSerializer
+from apps.users.models import User
 
 
 class AllTasksSerializer(serializers.ModelSerializer):
@@ -27,10 +28,15 @@ class CreateUpdateTaskSerializer(serializers.ModelSerializer):
         slug_field='name',
         queryset=Project.objects.all()
     )
+    assignee = serializers.SlugRelatedField(
+        slug_field='email',
+        queryset=User.objects.all(),
+        required=False
+    )
 
     class Meta:
         model = Task
-        fields = ('name', 'description', 'priority', 'project', 'tags', 'deadline')
+        fields = ('name', 'description', 'priority', 'status', 'assignee', 'project', 'tags', 'deadline')
 
     def validate_name(self, value):
         if len(value) < 10:
