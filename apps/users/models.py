@@ -28,7 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     position = models.CharField(
         max_length=20,
-        choices=Positions.choices
+        choices=Positions.choices()
     )
 
     objects = UserManager()

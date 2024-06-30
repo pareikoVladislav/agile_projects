@@ -13,7 +13,8 @@ class AllProjectFileSerializer(serializers.ModelSerializer):
 
     project = serializers.SlugRelatedField(
         read_only=True,
-        slug_field="name"
+        slug_field="name",
+        many=True
     )
 
     class Meta:

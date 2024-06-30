@@ -23,7 +23,7 @@ class CreateTasksTestCase(TestCase):
             last_name='uer',
             email='user@example.com',
             position="PRODUCT_OWNER",
-            password='1q9i2w8u3e7y4r6t5'
+            password='test'
         )
 
     def test_create_task_with_valid_data(self):
