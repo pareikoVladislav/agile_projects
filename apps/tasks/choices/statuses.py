@@ -12,3 +12,6 @@ class Statuses(Enum):
     @classmethod
     def choices(cls):
         return [(attr.name, attr.value) for attr in cls]
+
+    def __str__(self):
+        return self.name

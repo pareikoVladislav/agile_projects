@@ -10,8 +10,8 @@ from apps.users.models import User
 class Task(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField()
-    status = models.CharField(max_length=15, choices=Statuses.choices, default=Statuses.NEW)
-    priority = models.SmallIntegerField(choices=Priorities.choices, default=Priorities.MEDIUM[0])
+    status = models.CharField(max_length=15, choices=Statuses.choices(), default=Statuses.NEW)
+    priority = models.SmallIntegerField(choices=Priorities.choices(), default=Priorities.MEDIUM[0])
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
     tags = models.ManyToManyField("Tag", related_name="tasks")
     created_at = models.DateTimeField(auto_now_add=True)
