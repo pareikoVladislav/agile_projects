@@ -5,8 +5,8 @@ from apps.projects.views.project_views import ProjectListAPIView, ProjectDetailA
 
 
 urlpatterns = [
-    path('', ProjectListAPIView.as_view()),
-    path('<int:pk>/', ProjectDetailAPIView.as_view()),
-    path('files/', ProjectFileListGenericView.as_view()),
-    path('files/download/<int:pk>', ProjectFileDownloadApiView.as_view())
+    path('', ProjectListAPIView.as_view(), name='project-list'),
+    path('<int:pk>/', ProjectDetailAPIView.as_view(), name='project-detail'),
+    path('files/', ProjectFileListGenericView.as_view(), name='project-files'),
+    path('files/download/<int:pk>', ProjectFileDownloadApiView.as_view(), name='download-file')
 ]
