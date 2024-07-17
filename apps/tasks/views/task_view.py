@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.request import Request
@@ -12,7 +13,7 @@ from apps.tasks.models import Task
 from apps.tasks.serializers.tasks_serializers import (
     AllTasksSerializer,
     CreateUpdateTaskSerializer,
-    TaskDetailSerializer
+    TaskDetailSerializer,
 )
 
 
@@ -49,7 +50,9 @@ class AllTasksListAPIView(APIView):
             return Response(data=[], status=status.HTTP_204_NO_CONTENT)
 
         paginator = TaskPagination()
-        paginated_tasks = paginator.paginate_queryset(tasks, request, view=self)
+        paginated_tasks = paginator.paginate_queryset(
+            tasks, request, view=self
+        )
 
         if paginated_tasks is not None:
             serializer = AllTasksSerializer(paginated_tasks, many=True)
@@ -80,6 +83,7 @@ class AllTasksListAPIView(APIView):
 #     "deadline": "2024-06-30"
 # }
 
+
 class TaskDetailAPIView(APIView):
     def get_object(self):
         return get_object_or_404(Task, pk=self.kwargs['pk'])
@@ -92,9 +96,13 @@ class TaskDetailAPIView(APIView):
 
     def put(self, request: Request, *args, **kwargs):
         task = self.get_object()
-        serializer = TaskDetailSerializer(instance=task, data=request.data, partial=True)
+        serializer = TaskDetailSerializer(
+            instance=task, data=request.data, partial=True
+        )
         if not serializer.is_valid():
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                data=serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )
 
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -104,7 +112,5 @@ class TaskDetailAPIView(APIView):
 
         task.delete()
 
-        delete_message = {
-            "message": "Task was successfully deleted"
-        }
+        delete_message = {"message": "Task was successfully deleted"}
         return Response(data=delete_message, status=status.HTTP_200_OK)

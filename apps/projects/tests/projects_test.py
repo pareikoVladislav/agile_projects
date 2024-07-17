@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from unittest.mock import patch, MagicMock
 
 from django.urls import reverse
@@ -8,9 +9,13 @@ from rest_framework.test import APITestCase, APIClient
 
 from apps.projects.models import Project
 from apps.projects.serializers.project_serializers import (
-    AllProjectsSerializer, ProjectDetailSerializer
+    AllProjectsSerializer,
+    ProjectDetailSerializer,
 )
-from apps.projects.views.project_views import ProjectListAPIView, ProjectDetailAPIView
+from apps.projects.views.project_views import (
+    ProjectListAPIView,
+    ProjectDetailAPIView,
+)
 
 
 class TestProjectListAPIView(APITestCase):
@@ -21,17 +26,17 @@ class TestProjectListAPIView(APITestCase):
 
         self.project1 = Project.objects.create(
             name='Project 1',
-            description='Mock Project description with length minimum of 50 characters'
+            description='Mock Project description with length minimum of 50 characters',
         )
         self.project2 = Project.objects.create(
             name='Project 2',
-            description='Mock Project description with length minimum of 50 characters'
+            description='Mock Project description with length minimum of 50 characters',
         )
 
     @patch.object(
         target=ProjectListAPIView,
         attribute='get_objects',
-        return_value=Project.objects.none()
+        return_value=Project.objects.none(),
     )
     def test_empty_project_list(self, mock_get_objects):
         response = self.client.get(self.url)
@@ -58,7 +63,7 @@ class TestProjectListAPIView(APITestCase):
     def test_create_project(self):
         data = {
             'name': 'New Project',
-            'description': 'Test Description for the first test project with description more than 50 chars.'
+            'description': 'Test Description for the first test project with description more than 50 chars.',
         }
 
         response = self.client.post(self.url, data, format='json')
@@ -69,7 +74,7 @@ class TestProjectListAPIView(APITestCase):
         project = Project.objects.get(name='New Project')
         self.assertEqual(
             project.description,
-            'Test Description for the first test project with description more than 50 chars.'
+            'Test Description for the first test project with description more than 50 chars.',
         )
 
 
@@ -79,8 +84,7 @@ class TestRetrieveUpdateProjectAPIView(APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.mock_project = Project.objects.create(
-            name='Test Project',
-            description='Description for test project'
+            name='Test Project', description='Description for test project'
         )
         self.project = Project.objects.get(pk=1)
         self.url = reverse('project-detail', kwargs={'pk': 1})
@@ -102,7 +106,9 @@ class TestRetrieveUpdateProjectAPIView(APITestCase):
     def test_delete_project(self):
         response = self.client.delete(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {'message': 'Project deleted successfully'})
+        self.assertEqual(
+            response.data, {'message': 'Project deleted successfully'}
+        )
 
         # Проверка, что проект был удален из базы данных
         self.assertFalse(Project.objects.filter(pk=self.project.id).exists())

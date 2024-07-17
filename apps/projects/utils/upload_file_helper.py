@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os.path
 from pathlib import Path
 
@@ -23,9 +24,10 @@ def validate_file_size(file) -> bool:
 def create_file_path(file_name: str, project_name: str) -> str:
     new_file, file_extension = file_name.split(".")
     file_path = "{}/{}/{}.{}".format(
-        FILE_PATH, project_name.replace(' ', '_'),
+        FILE_PATH,
+        project_name.replace(' ', '_'),
         new_file.replace(' ', '_'),
-        file_extension
+        file_extension,
     )
     # file_path = os.path.join(FILE_PATH, file_path)
     return file_path
@@ -38,4 +40,3 @@ def save_file(file, file_path):
         for chunk in file.chunks():
             new_file.write(chunk)
     return file_path
-

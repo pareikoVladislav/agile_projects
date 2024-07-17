@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -24,12 +25,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_name='users',
         on_delete=models.SET_NULL,
         blank=True,
-        null=True
+        null=True,
     )
-    position = models.CharField(
-        max_length=20,
-        choices=Positions.choices()
-    )
+    position = models.CharField(max_length=20, choices=Positions.choices())
 
     objects = UserManager()
 
@@ -39,4 +37,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-

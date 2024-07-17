@@ -1,45 +1,59 @@
+# -*- coding: utf-8 -*-
 from rest_framework import serializers
 from django.utils import timezone
 
 from apps.tasks.models import Task, Tag
 from apps.projects.models import Project
 from apps.tasks.choices.priorities import Priorities
-from apps.projects.serializers.project_serializers import ProjectShortInfoSerializer
+from apps.projects.serializers.project_serializers import (
+    ProjectShortInfoSerializer,
+)
 
 
 class AllTasksSerializer(serializers.ModelSerializer):
-    project = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='name'
-    )
-    assignee = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='email'
-    )
+    project = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    assignee = serializers.SlugRelatedField(read_only=True, slug_field='email')
 
     class Meta:
         model = Task
-        fields = ('name', 'status', 'priority', 'project', 'assignee', 'deadline')
+        fields = (
+            'name',
+            'status',
+            'priority',
+            'project',
+            'assignee',
+            'deadline',
+        )
 
 
 class CreateUpdateTaskSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(
-        slug_field='name',
-        queryset=Project.objects.all()
+        slug_field='name', queryset=Project.objects.all()
     )
 
     class Meta:
         model = Task
-        fields = ('name', 'description', 'priority', 'project', 'tags', 'deadline')
+        fields = (
+            'name',
+            'description',
+            'priority',
+            'project',
+            'tags',
+            'deadline',
+        )
 
     def validate_name(self, value):
         if len(value) < 10:
-            raise serializers.ValidationError('Name must be at least 10 characters')
+            raise serializers.ValidationError(
+                'Name must be at least 10 characters'
+            )
         return value
 
     def validate_description(self, value):
         if len(value) < 50:
-            raise serializers.ValidationError('Description must be at least 50 characters')
+            raise serializers.ValidationError(
+                'Description must be at least 50 characters'
+            )
         return value
 
     def validate_priority(self, value):
@@ -69,9 +83,7 @@ class CreateUpdateTaskSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         tags = validated_data.pop('tags', [])
-        task = Task.objects.create(
-            **validated_data
-        )
+        task = Task.objects.create(**validated_data)
         for tag in tags:
             task.tags.add(tag)
         task.save()

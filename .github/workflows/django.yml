@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [ "3.10" ]
+        python-version: [ "3.12" ]
 
     services:
       mysql:
@@ -37,6 +37,11 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
 
       - name: Create .env file
         run: |
@@ -63,10 +68,13 @@ jobs:
           done
           mysqladmin ping -h"${{ secrets.DB_HOST }}" -u"${{ secrets.DB_USER }}" -p'${{ secrets.DB_PASSWORD }}' --verbose
 
-      - name: Make setup.sh executable and run it
+      - name: Install dependencies with Poetry
         run: |
-          chmod +x setup.sh
-          ./setup.sh
+          poetry install -v
+
+      - name: Run tests with Tox
+        run: |
+          poetry run tox
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3

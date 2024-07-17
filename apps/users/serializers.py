@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
@@ -17,8 +18,9 @@ class UserListSerializer(serializers.ModelSerializer):
             "position",
             "email",
             "phone",
-            "last_login"
+            "last_login",
         ]
+
 
 class RegisterUserSerializer(serializers.ModelSerializer):
 
@@ -33,11 +35,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             "email",
             "position",
             "password",
-            "re_password"
+            "re_password",
         ]
-        extra_kwargs = {"password": {
-            "write_only": True
-        }}
+        extra_kwargs = {"password": {"write_only": True}}
 
     def validate(self, attrs):
         user_name = attrs.get('username')
@@ -46,7 +46,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
         if not re.match('^[A-Za-z0-9_.]+$', user_name):
             raise serializers.ValidationError(
-                {'user_name': 'The username must be alphanumeric characters or have only _ . symbols.'}
+                {
+                    'user_name': 'The username must be alphanumeric characters or have only _ . symbols.'
+                }
             )
         if not re.match('^[A-Za-z]+$', first_name):
             raise serializers.ValidationError(
@@ -68,9 +70,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         try:
             validate_password(password)
         except ValidationError as err:
-            raise serializers.ValidationError(
-                {'password': err.messages}
-            )
+            raise serializers.ValidationError({'password': err.messages})
         return attrs
 
     def create(self, validated_data):
