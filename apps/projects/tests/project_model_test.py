@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from unittest.mock import MagicMock
 from apps.projects.models import Project

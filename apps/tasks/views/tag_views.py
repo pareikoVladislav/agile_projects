@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework.generics import get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -18,17 +19,11 @@ class TagListAPIView(APIView):
         tags = self.get_objects()
 
         if not tags.exists():
-            return Response(
-                data=[],
-                status=status.HTTP_204_NO_CONTENT
-            )
+            return Response(data=[], status=status.HTTP_204_NO_CONTENT)
 
         serializer = TagSerializer(tags, many=True)
 
-        return Response(
-            data=serializer.data,
-            status=status.HTTP_200_OK
-        )
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request: Request) -> Response:
         serializer = TagSerializer(data=request.data)
@@ -37,12 +32,10 @@ class TagListAPIView(APIView):
             serializer.save()
 
             return Response(
-                data=serializer.validated_data,
-                status=status.HTTP_201_CREATED
+                data=serializer.validated_data, status=status.HTTP_201_CREATED
             )
         return Response(
-            data=serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
+            data=serializer.errors, status=status.HTTP_400_BAD_REQUEST
         )
 
 
@@ -65,13 +58,13 @@ class TagDetailApiView(APIView):
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            data=serializer.errors, status=status.HTTP_400_BAD_REQUEST
+        )
 
     def delete(self, request: Request, tag_id: int):
         tag = self.get_object(tag_id)
 
         tag.delete()
-        response_msg = {
-            "message": "Successfully deleted"
-        }
+        response_msg = {"message": "Successfully deleted"}
         return Response(data=response_msg, status=status.HTTP_200_OK)

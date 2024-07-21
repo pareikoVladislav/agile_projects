@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for agile_projects project.
 
@@ -40,10 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # 3rd-party
     'rest_framework',
-
     # local
     'apps.tasks.apps.TasksConfig',
     'apps.projects.apps.ProjectsConfig',

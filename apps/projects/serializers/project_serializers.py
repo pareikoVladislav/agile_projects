@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework import serializers
 from apps.projects.models import Project
 
@@ -17,7 +18,9 @@ class CreateUpdateProjectSerializer(serializers.ModelSerializer):
 
     def validate_description(self, value):
         if len(value) < 50:
-            raise serializers.ValidationError('Description must be at least 50 characters')
+            raise serializers.ValidationError(
+                'Description must be at least 50 characters'
+            )
         return value
 
 

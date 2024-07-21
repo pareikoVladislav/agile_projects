@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from enum import Enum
+
 
 class Priorities(Enum):
     VERY_LOW = (1, "Very low")
