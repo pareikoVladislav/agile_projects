@@ -9,6 +9,9 @@ from apps.projects.serializers.project_serializers import (
     ProjectShortInfoSerializer,
 )
 
+from apps.users.models import User
+
+
 
 class AllTasksSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(read_only=True, slug_field='name')
@@ -30,6 +33,11 @@ class CreateUpdateTaskSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(
         slug_field='name', queryset=Project.objects.all()
     )
+    assignee = serializers.SlugRelatedField(
+        slug_field='email',
+        queryset=User.objects.all(),
+        required=False
+    )
 
     class Meta:
         model = Task
@@ -41,6 +49,7 @@ class CreateUpdateTaskSerializer(serializers.ModelSerializer):
             'tags',
             'deadline',
         )
+
 
     def validate_name(self, value):
         if len(value) < 10:

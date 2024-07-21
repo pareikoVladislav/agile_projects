@@ -96,9 +96,11 @@ class TaskDetailAPIView(APIView):
 
     def put(self, request: Request, *args, **kwargs):
         task = self.get_object()
+
         serializer = TaskDetailSerializer(
             instance=task, data=request.data, partial=True
         )
+
         if not serializer.is_valid():
             return Response(
                 data=serializer.errors, status=status.HTTP_400_BAD_REQUEST
